@@ -1,0 +1,51 @@
+{{> nav }}
+<div class="container p-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-white border-0">
+          <h2 class="text-info mb-0 text-center">Registro de Personal</h2>
+        </div>
+        <div class="card-body">
+
+          <div class="alert py-1 px-3 alert-info animate__animated animate__shakeX">
+            <b>{{success}}</b>
+          </div>
+
+          <form action="" method="POST">
+            <div class="form-group">
+              <label for="document">Cedula de Identidad</label>
+              <input minlength="6" maxlength="10" required autocomplete="off" autofocus class="form-control" type="text"
+                name="document" id="document">
+            </div>
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <input minlength="4" required autocomplete="off" autofocus class="form-control" type="text" name="name"
+                id="name">
+            </div>
+            <div class="form-group">
+              <label for="name">Apellido</label>
+              <input minlength="4" required autocomplete="off" autofocus class="form-control" type="text"
+                name="lastname" id="lastname">
+            </div>
+            <div class="form-group">
+
+              <label for="position">Seleccione el Cargo</label>
+              <select class="form-control" name="position" id="position">
+                {{#each positions}}
+                <option value="{{id_position}}">{{name}}</option>
+                {{#else}}
+                <option disabled selected>No hay cargos registrados</option>
+                {{/else}}
+                {{/each}}
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-small btn-info btn-block">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
