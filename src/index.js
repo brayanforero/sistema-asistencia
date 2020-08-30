@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const flash = require("connect-flash");
 const exhbs = require("express-handlebars");
 
 // SETTINGS
@@ -27,25 +28,27 @@ app.set("public", express.static(path.join(__dirname, "public")));
 
 // GLOBAL VARS
 // app.use((req, res, next) => {
+//   app.global.success = req.flash("success")[0];
 //   next();
 // });
 // MIDDELWARES
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(cookieParser("system college"));
-// app.use(
-//   session({
-//     secret: "system college",
-//     resave: true,
-//     saveUninitialized: true,
-//     cookie: { secure: true, maxAge: 3600 },
-//   })
-// );
+app.use(flash());
+app.use(cookieParser("system college"));
+app.use(
+  session({
+    secret: "system college",
+    resave: true,
+    saveUninitialized: true,
+    // cookie: { secure: true, maxAge: 3600 },
+  })
+);
 
 // ROUTES
 app.use("/", require("./routes/index"));
-app.use("/users", require("./routes/users"));
+app.use("/workers", require("./routes/workers"));
 
 // HANDDLER 404
 app.use((req, res) => {
