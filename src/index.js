@@ -7,8 +7,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
 const exhbs = require("express-handlebars");
-// const MySQLStore = require("express-mysql-session");
-// const { database } = require("./database/config");
+const MySQLStore = require("express-mysql-session");
+const database = require("./database/config");
 
 // SETTINGS
 app.set("port", process.env.PORT || 3000);
@@ -39,7 +39,7 @@ app.use(
     secret: "system college",
     resave: false,
     saveUninitialized: false,
-    // store: new MySQLStore(database),
+    store: new MySQLStore(database),
     // cookie: { secure: true, maxAge: 3600 },
   })
 );
