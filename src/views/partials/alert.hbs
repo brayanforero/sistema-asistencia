@@ -1,11 +1,17 @@
 {{#if success}}
-<div class="alert alert-success" role="alert">
+<div class="alert alert-success alert-dismissible fade show animate__animated animate__headShake" role="alert">
   <b>{{success}}</b>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <i class="fas fa-times-circle"></i>
+  </button>
 </div>
 {{/if}}
 
 {{#if falied}}
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-danger alert-dismissible fade show animate__animated animate__headShake" role="alert">
   <b>{{falied}}</b>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <i class="fas fa-times-circle"></i>
+  </button>
 </div>
 {{/if}}
