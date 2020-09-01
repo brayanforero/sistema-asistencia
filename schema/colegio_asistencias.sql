@@ -96,3 +96,4 @@ CREATE TABLE IF NOT EXISTS users (
 ALTER TABLE users ADD CONSTRAINT fk_users_workers  FOREIGN KEY (id_worker)
 			REFERENCES workers (id_worker)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
+SHOW tables;
