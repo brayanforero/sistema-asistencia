@@ -11,4 +11,12 @@ helper.validState = (state) => {
   return str;
 };
 
+helper.validStateInverse = (state) => {
+  let str = "";
+
+  if (state) str = "Reposo";
+  if (!state) str = "Activo";
+  return str;
+};
+
 module.exports = helper;

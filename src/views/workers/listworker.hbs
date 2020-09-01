@@ -40,7 +40,8 @@
                 <td>
                   <a href="/workers/update/{{id}}" class="btn btn-sm btn-success">Actualizar</a>
                   <a href="/workers/delete/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
-                  <a href="/workers/change/state/{{id}}" class="btn btn-sm btn-info">Cambiar a {{validState state}}</a>
+                  <a href="/workers/change/state/{{id}}" class="btn btn-sm btn-info">Cambiar a
+                    {{validStateInverse state}}</a>
                 </td>
               </tr>
               {{/each}}
