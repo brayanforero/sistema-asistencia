@@ -45,10 +45,16 @@ router.get("/update/:id", async (req, res) => {
     "SELECT  wr.id_worker AS id,wr.worker_document AS doc , wr.name, wr.last_name, pos.name AS cargo, state FROM workers AS wr INNER JOIN positions AS pos	ON pos.id_position = wr.id_position WHERE wr.id_worker = ?",
     [id]
   );
+  const positions = await db.query("SELECT id_position, name FROM positions");
   const worker = rows[0];
-  res.render("workers/updateworker", { worker });
+  res.render("workers/updateworker", {
+    worker,
+    positions,
+    cargo: worker.cargo,
+  });
 });
 
+// actualizacion de datos
 router.post("/update", async (req, res) => {
   const { name, lastname, id, document } = req.body;
 
@@ -57,6 +63,13 @@ router.post("/update", async (req, res) => {
     [name, lastname, document, id]
   );
   req.flash("success", "Actualizacion exitosa");
+  res.redirect("/workers");
+});
+
+// cambio de estado
+router.get("/change/state/:id", async (req, res) => {
+  const { id } = req.params;
+  await db.query("UPDATE workers SET state = !state");
   res.redirect("/workers");
 });
 module.exports = router;
