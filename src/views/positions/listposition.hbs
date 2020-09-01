@@ -1,0 +1,43 @@
+{{> nav }}
+
+<div class="container-fluid p-5">
+  <div class="row">
+    <div class="col-3 mb-3">
+      <a class="btn btn-success" href="/positions/add">Agregar Nuevo <i class="fas fa-plus-circle"></i></a>
+    </div>
+    <div class="col-9 mb-3">
+      {{> alert }}
+    </div>
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-info m-0">Listado del Cargo Activos</h2>
+        </div>
+        <div class="card-body ">
+          <table class="table table-sm table-striped table-hover table-responsive-md">
+            <thead>
+              <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each positions}}
+              <tr>
+                <th scope="col">{{id}}</th>
+                <th scope="col">{{name}}</th>
+                <th scope="col">
+                  <a href="/positions/update/{{id}}" class="btn btn-sm btn-success">Actualizar</a>
+                  <a href="/positions/delete/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
+                </th>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
