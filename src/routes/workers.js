@@ -12,7 +12,6 @@ router.get("/add", async (req, res) => {
   const positions = await db.query("SELECT id_position, name FROM positions");
   res.render("workers/newworker", {
     positions,
-    success: req.flash("success")[0],
   });
 });
 
