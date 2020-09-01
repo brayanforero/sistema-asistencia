@@ -2,41 +2,50 @@
 
 <div class="container-fluid p-5">
   <div class="row">
-    <div class="col-12 mb-3">
+    <div class="col-3 mb-3">
       <a class="btn btn-success" href="/workers/add">Agregar Nuevo <i class="fas fa-user-plus"></i></a>
+    </div>
+    <div class="col-9 mb-3">
+      {{> alert }}
     </div>
     <div class="col-12">
       <div class="card">
         <div class="card-header">
           <h2 class="text-info m-0">Listado del Personal</h2>
         </div>
-        <div class="card-body p-0"></div>
-        <table class="table table-sm table-striped table-hover table-responsive-md">
-          <thead>
-            <tr>
-              <th scope="col">Codigo</th>
-              <th scope="col">Cédula</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Cargo</th>
-              <th scope="col">Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each workers}}
-            <tr>
-              <th>
-                <a class="text-info" href="/workers/{{id}}">{{id}}</a>
-              </th>
-              <th>{{doc}}</th>
-              <td>{{name}}</td>
-              <td>{{last_name}}</td>
-              <td>{{position}}</td>
-              <td>{{ validState state }}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+        <div class="card-body ">
+          <table class="table table-sm table-striped table-hover table-responsive-md">
+            <thead>
+              <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Cédula</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Cargo</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each workers}}
+              <tr>
+                <th>
+                  <a class="text-info" href="/workers/{{id}}">{{id}}</a>
+                </th>
+                <th>{{doc}}</th>
+                <td>{{name}}</td>
+                <td>{{last_name}}</td>
+                <td>{{cargo}}</td>
+                <td>{{validState state}}</td>
+                <td>
+                  <a href="/workers/update/{{id}}" class="btn btn-success">Actualizar</a>
+                  <a href="/workers/delete/{{id}}" class="btn btn-danger">Eliminar</a>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
