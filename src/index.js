@@ -55,6 +55,7 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/index"));
 app.use("/workers", require("./routes/workers"));
 app.use("/positions", require("./routes/positions"));
+app.use("/journals/", require("./routes/journals"));
 // HANDDLER 404
 app.use((req, res) => {
   res.status(404).render("404");

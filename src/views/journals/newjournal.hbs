@@ -1,0 +1,48 @@
+{{> nav }}
+<div class="container p-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-white border-0">
+          <h2 class="text-info mb-0 text-center">Agrega una Nueva Jornada</h2>
+        </div>
+        <div class="card-body">
+
+          {{> alert }}
+          <form action="/journals/add" method="POST">
+            <div class="form-group">
+              <label for="day">Dia del Mes</label>
+              <input minlength="1" maxlength="2" required autocomplete="off" autofocus class="form-control" type="text"
+                name="day" id="day">
+            </div>
+            <div class="form-group">
+              <label for="month">Mes</label>
+              <select required class="form-control" name="month" id="month">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="year">Año</label>
+              <input minlength="4" maxlength="4" required autocomplete="off" autofocus class="form-control" type="text"
+                name="year" id="year">
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-small btn-info btn-block">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
