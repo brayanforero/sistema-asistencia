@@ -57,25 +57,47 @@ CREATE TABLE IF NOT EXISTS journal (
 );
 
 
-DROP TABLE IF EXISTS assists;
-CREATE TABLE IF NOT EXISTS assists (
-	id_assists INT UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS entrances;
+CREATE TABLE IF NOT EXISTS entrances (
+	id_entrance INT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_journal INT UNSIGNED NOT NULL,
     id_worker INT UNSIGNED NOT NULL,
     is_assist BOOLEAN NOT NULL,
     observation VARCHAR(20) NOT NULL,
 	time_entrance TIME NOT NULL,
     
-    CONSTRAINT pk_assists PRIMARY KEY (id_assists),
+    CONSTRAINT pk_assists PRIMARY KEY (id_entrance),
     CONSTRAINT uq_assists UNIQUE (id_journal, id_worker)
 );
 
--- ADD TO ASSISTS FOREIGN KEYS
-ALTER TABLE assists ADD CONSTRAINT fk_assists_journal  FOREIGN KEY (id_journal)
+-- ADD TO ENTRANCES FOREIGN KEYS
+ALTER TABLE entrances ADD CONSTRAINT fk_entrances_journal  FOREIGN KEY (id_journal)
 			REFERENCES journal (id_journal)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
             
-ALTER TABLE assists ADD CONSTRAINT fk_assists_workers  FOREIGN KEY (id_worker)
+ALTER TABLE entrances ADD CONSTRAINT fk_entrances_workers  FOREIGN KEY (id_worker)
+			REFERENCES workers (id_worker)
+            ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+DROP TABLE IF EXISTS departures;
+CREATE TABLE IF NOT EXISTS departures (
+	id_departure INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_journal INT UNSIGNED NOT NULL,
+    id_worker INT UNSIGNED NOT NULL,
+    is_assist BOOLEAN NOT NULL,
+    observation VARCHAR(20) NOT NULL,
+	time_entrance TIME NOT NULL,
+    
+    CONSTRAINT pk_assists PRIMARY KEY (id_departure),
+    CONSTRAINT uq_assists UNIQUE (id_journal, id_worker)
+);
+
+-- ADD TO DEPARTURES FOREIGN KEYS
+ALTER TABLE departures ADD CONSTRAINT fk_departures_journal  FOREIGN KEY (id_journal)
+			REFERENCES journal (id_journal)
+            ON DELETE RESTRICT ON UPDATE RESTRICT;
+            
+ALTER TABLE departures ADD CONSTRAINT fk_departures_workers  FOREIGN KEY (id_worker)
 			REFERENCES workers (id_worker)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
 
