@@ -9,11 +9,8 @@ router.get("/add", (req, res) => {
 // agregar una nueva jornada laboral
 router.post("/add", async (req, res) => {
   const { day, month, year } = req.body;
-  await db.query("INSERT INTO journal VALUES (NULL, ?,?,?)", [
-    day,
-    month,
-    year,
-  ]);
+  const date = `${year}-${month}-${day}`;
+  await db.query("INSERT INTO journal VALUES (NULL, ?)", [date]);
   req.flash("success", "Jornada agregada con exito");
   res.redirect("/journals/add");
 });
@@ -21,7 +18,7 @@ router.post("/add", async (req, res) => {
 // render de vista lista de jornadas
 router.get("/", async (req, res) => {
   const rows = await db.query(
-    "SELECT id_journal AS id, date_day AS day, date_month AS month, date_year AS year FROM journal"
+    "SELECT id_journal AS id, created_at AS date FROM journal"
   );
   res.render("journals/listjournal", { journals: rows });
 });

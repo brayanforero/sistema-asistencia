@@ -18,18 +18,14 @@
             <thead>
               <tr>
                 <th scope="col">Codigo</th>
-                <th scope="col">Dia</th>
-                <th scope="col">Mes</th>
-                <th scope="col">Año</th>
+                <th scope="col">Fecha</th>
               </tr>
             </thead>
             <tbody>
               {{#each journals}}
               <tr>
                 <th scope="col">{{id}}</th>
-                <th scope="col">{{day}}</th>
-                <th scope="col">{{month}}</th>
-                <th scope="col">{{year}}</th>
+                <th scope="col">{{date}}</th>
                 <th scope="col">
                   <a href="/journals/delete/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
                 </th>
