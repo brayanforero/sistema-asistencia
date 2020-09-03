@@ -40,7 +40,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: new MySQLStore(database),
-    // cookie: { secure: true, maxAge: 3600 },
+    cookie: { secure: true, maxAge: 3600 },
   })
 );
 
