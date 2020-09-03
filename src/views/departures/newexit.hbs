@@ -1,0 +1,60 @@
+{{> nav }}
+<div class="container p-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-white border-0">
+          <h2 class="text-info mb-0 text-center">Salida de Personal</h2>
+        </div>
+        <div class="card-body">
+          {{> alert }}
+          <form action="/assistances/exit/add" method="POST">
+            <div class="form-group">
+              <label for="position">Seleccione una Jornada</label>
+              <select required class="form-control" name="journal" id="position">
+                {{#each journals}}
+                <option value="{{id}}">{{fecha}}</option>
+                {{#else}}
+                <option disabled selected>No hay jordana activa</option>
+                {{/else}}
+                {{/each}}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="position">Seleccione una Persona</label>
+              <select required class="form-control" name="worker" id="position">
+                {{#each workers}}
+                <option value="{{id}}">{{fullname}}</option>
+                {{#else}}
+                <option disabled selected>No hay cargos registrados</option>
+                {{/else}}
+                {{/each}}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>¿La persona asistió?</label>
+              <div>
+                <label for="yes">Si</label>
+                <input required type="radio" value="1" name="assist" id="yes">
+                <label for="no">No</label>
+                <input required type="radio" value="0" name="assist" id="no">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="observation">Observación</label>
+              <select class="form-control" name="observation" id="obsevation">
+                <option value="ninguna">Ninguna</option>
+                <option value="reposo">Reposo</option>
+                <option value="permiso autorizado">Permiso Autorizado</option>
+                <option value="otros motivos">Otros Motivos</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Registrar Salida" class="btn btn-small btn-info btn-block">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
