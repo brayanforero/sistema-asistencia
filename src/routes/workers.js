@@ -69,7 +69,8 @@ router.post("/update", async (req, res) => {
 // cambio de estado
 router.get("/change/state/:id", async (req, res) => {
   const { id } = req.params;
-  await db.query("UPDATE workers SET state = !state");
+  await db.query("UPDATE workers SET state = !state WHERE id_worker = ?", [id]);
+  req.flash("success", "Cambio de estado Realizado");
   res.redirect("/workers");
 });
 module.exports = router;
