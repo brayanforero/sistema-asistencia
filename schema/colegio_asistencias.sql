@@ -1,13 +1,16 @@
+-- DELTED DATABASE
+DROP DATABASE IF EXISTS colegio_asistencias;
+
 -- DATABASE CREATED AND CONFIG
 
 CREATE DATABASE IF NOT EXISTS colegio_asistencias
 	CHARACTER SET utf8
 	COLLATE utf8_general_ci
+
 ;
 -- TO USING DATABASE
 USE colegio_asistencias;
--- DELTED DATABASE
-DROP DATABASE IF EXISTS colegio_asistencias;
+
 
 -- TABLE POSITION
 DROP TABLE IF EXISTS positions;
@@ -47,23 +50,21 @@ DESC workers;
 DROP TABLE IF EXISTS journal;
 CREATE TABLE IF NOT EXISTS journal (
 	id_journal INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    date_day SMALLINT UNSIGNED NOT NULL,
-    date_month SMALLINT UNSIGNED NOT NULL,
-    date_year INT UNSIGNED NOT NULL,
+    created_at DATE NOT NULL,
     
     CONSTRAINT pk_journal PRIMARY KEY (id_journal),
-    CONSTRAINT uq_journal UNIQUE INDEX (date_day, date_month, date_year)
+    CONSTRAINT uq_journal UNIQUE INDEX (created_at)
 );
 
-DESC journal;
 
 DROP TABLE IF EXISTS assists;
 CREATE TABLE IF NOT EXISTS assists (
-	id_assists INT UNSIGNED NOT NULL,
+	id_assists INT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_journal INT UNSIGNED NOT NULL,
     id_worker INT UNSIGNED NOT NULL,
     is_assist BOOLEAN NOT NULL,
     observation VARCHAR(20) NOT NULL,
+	time_entrance TIME NOT NULL,
     
     CONSTRAINT pk_assists PRIMARY KEY (id_assists),
     CONSTRAINT uq_assists UNIQUE (id_journal, id_worker)
