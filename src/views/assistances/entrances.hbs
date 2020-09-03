@@ -1,0 +1,51 @@
+{{> nav }}
+
+<div class="container-fluid p-5">
+  <div class="row">
+    <div class="col-3 mb-3">
+      <a class="btn btn-success" href="/assistances/entrance/add">Nueva Entrada <i class="fas fa-plus-circle"></i></a>
+    </div>
+    <div class="col-9 mb-3">
+      {{> alert }}
+    </div>
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-info m-0">Lista de entrada de Personal</h2>
+        </div>
+        <div class="card-body ">
+          <table class="table table-sm table-striped table-hover table-responsive-md">
+            <thead>
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Personal</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Asistente</th>
+                <th scope="col">Hora de Entrada</th>
+                <th scope="col">Observacion</th>
+                <th scope="col">Jornada</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each entrances}}
+              <tr>
+                <th scope="col">{{id}}</th>
+                <th scope="col">{{doc}}</th>
+                <th class="text-capitalize" scope="col">{{person}}</th>
+                <th scope="col">{{validState state}}</th>
+                <th scope="col">{{validAssists is_assist}}</th>
+                <th scope="col">{{time}}</th>
+                <th class="text-capitalize" scope="col">{{ob}}</th>
+                <th scope="col">{{journal}}</th>
+                <th scope="col">{{date}}</th>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

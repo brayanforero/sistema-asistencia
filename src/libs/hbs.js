@@ -13,9 +13,14 @@ helper.validState = (state) => {
 
 helper.validStateInverse = (state) => {
   let str = "";
-
   if (state) str = "Reposo";
   if (!state) str = "Activo";
+  return str;
+};
+helper.validAssists = (state) => {
+  let str = "";
+  if (state) str = "Si";
+  if (!state) str = "No";
   return str;
 };
 
