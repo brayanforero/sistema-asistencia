@@ -3,7 +3,7 @@
 <div class="container-fluid p-5">
   <div class="row">
     <div class="col-3 mb-3">
-      <a class="btn btn-success" href="/journals/add">Agregar una Jornada <i class="fas fa-plus-circle"></i></a>
+      <a class="btn btn-success" href="/jornadas/agregar/">Agregar una Jornada <i class="fas fa-plus-circle"></i></a>
     </div>
     <div class="col-9 mb-3">
       {{> alert }}
@@ -19,6 +19,8 @@
               <tr>
                 <th scope="col">Codigo</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Cerrada</th>
+                <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -26,8 +28,12 @@
               <tr>
                 <th scope="col">{{id}}</th>
                 <th scope="col">{{date}}</th>
+                <th class="text-capitalize" scope="col">{{close}}</th>
                 <th scope="col">
-                  <a href="/journals/delete/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
+                  <a href="/jornadas/eliminar/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
+                </th>
+                <th scope="col">
+                  <a href="/jornadas/cerrar/{{id}}" class="btn btn-sm btn-secondary">Cerrar Jornada</a>
                 </th>
               </tr>
               {{/each}}

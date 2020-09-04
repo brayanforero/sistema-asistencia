@@ -55,7 +55,7 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/index"));
 app.use("/personal", require("./routes/workers"));
 app.use("/cargos/", require("./routes/positions"));
-app.use("/journals/", require("./routes/journals"));
+app.use("/jornadas/", require("./routes/journals"));
 app.use("/assistances/", require("./routes/assistances"));
 // HANDDLER 404
 app.use((req, res) => {
