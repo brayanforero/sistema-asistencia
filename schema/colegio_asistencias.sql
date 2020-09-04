@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS journal;
 CREATE TABLE IF NOT EXISTS journal (
 	id_journal INT UNSIGNED NOT NULL AUTO_INCREMENT,
     created_at DATE NOT NULL,
-    
+	is_closed BOOLEAN NOT NULL DEFAULT 1,	
     CONSTRAINT pk_journal PRIMARY KEY (id_journal),
     CONSTRAINT uq_journal UNIQUE INDEX (created_at)
 );
@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS entrances (
     is_assist BOOLEAN NOT NULL,
     observation VARCHAR(20) NOT NULL,
 	time_entrance TIME NOT NULL,
+    time_exit TIME NOT NULL DEFAULT '00:00',
     
     CONSTRAINT pk_assists PRIMARY KEY (id_entrance),
     CONSTRAINT uq_assists UNIQUE (id_journal, id_worker)
@@ -76,28 +77,6 @@ ALTER TABLE entrances ADD CONSTRAINT fk_entrances_journal  FOREIGN KEY (id_journ
             ON DELETE RESTRICT ON UPDATE RESTRICT;
             
 ALTER TABLE entrances ADD CONSTRAINT fk_entrances_workers  FOREIGN KEY (id_worker)
-			REFERENCES workers (id_worker)
-            ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-DROP TABLE IF EXISTS departures;
-CREATE TABLE IF NOT EXISTS departures (
-	id_departure INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    id_journal INT UNSIGNED NOT NULL,
-    id_worker INT UNSIGNED NOT NULL,
-    is_assist BOOLEAN NOT NULL,
-    observation VARCHAR(20) NOT NULL,
-	time_entrance TIME NOT NULL,
-    
-    CONSTRAINT pk_assists PRIMARY KEY (id_departure),
-    CONSTRAINT uq_assists UNIQUE (id_journal, id_worker)
-);
-
--- ADD TO DEPARTURES FOREIGN KEYS
-ALTER TABLE departures ADD CONSTRAINT fk_departures_journal  FOREIGN KEY (id_journal)
-			REFERENCES journal (id_journal)
-            ON DELETE RESTRICT ON UPDATE RESTRICT;
-            
-ALTER TABLE departures ADD CONSTRAINT fk_departures_workers  FOREIGN KEY (id_worker)
 			REFERENCES workers (id_worker)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
 
