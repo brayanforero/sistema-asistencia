@@ -40,7 +40,6 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: new MySQLStore(database),
-    cookie: { secure: true, maxAge: 3600 },
   })
 );
 
@@ -48,7 +47,7 @@ app.use(
 app.use((req, res, next) => {
   app.locals.success = req.flash("success");
   app.locals.falied = req.flash("falied");
-  app.locals.user = req.user
+  app.locals.user = req.user;
   next();
 });
 
