@@ -9,7 +9,7 @@ const flash = require("connect-flash");
 const exhbs = require("express-handlebars");
 const MySQLStore = require("express-mysql-session");
 const database = require("./database/config");
-
+const passport = require("passport");
 // SETTINGS
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
@@ -42,6 +42,8 @@ app.use(
     store: new MySQLStore(database),
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
 // GLOBAL VARS
 app.use((req, res, next) => {
@@ -57,6 +59,7 @@ app.use("/personal", require("./routes/workers"));
 app.use("/cargos/", require("./routes/positions"));
 app.use("/jornadas/", require("./routes/journals"));
 app.use("/asistencias/", require("./routes/assistances"));
+app.use("/users/", require("./routes/users"));
 // HANDDLER 404
 app.use((req, res) => {
   res.status(404).render("404");

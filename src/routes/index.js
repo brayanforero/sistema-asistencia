@@ -1,7 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../database/connection");
+const passport = require("passport");
+require("../libs/passport");
+
 router.get("/", (req, res) => {
-  res.render("home", { username: "brayan" });
+  res.send("Hello");
 });
+
+router.get("/login/", (req, res) => {
+  res.render("auth/login");
+});
+
+router.post(
+  "/auth/login/",
+  passport.authenticate("local-login", {
+    successRedirect: "/asistencias/",
+    failureRedirect: "/login/",
+    failureFlash: true,
+  })
+);
 module.exports = router;

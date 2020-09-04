@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/connection");
-const { encryptPass } = require("../libs/helpers");
+const helper = require("../libs/helpers");
 const { user } = require("../database/config");
 
 // render de la vista para agregar un nuevo usuario
@@ -15,7 +15,7 @@ router.get("/add", async (req, res) => {
 // proceso de registro de usuario
 router.post("/add", async (req, res) => {
   const { person, username, password } = req.body;
-  const hash = await encryptPass(password);
+  const hash = await helper.encryptPass(password);
   try {
     const row = await db.query(
       "INSERT INTO users (id_worker,username, password, is_habilited) VALUES(?,?,?,1)",
