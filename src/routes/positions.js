@@ -9,22 +9,21 @@ router.get("/", async (req, res) => {
 });
 
 // render de vista para agregar un nuevo cargo
-router.get("/add", (req, res) => {
+router.get("/agregar/", (req, res) => {
   res.render("positions/newposition");
 });
 
 // agrega nuevo cargo
-router.post("/add", async (req, res) => {
+router.post("/agregar/", async (req, res) => {
   const { cargo } = req.body;
 
   await db.query("INSERT INTO positions SET name = ?", [cargo]);
   req.flash("success", "Cargo agregado con Exito");
-  res.redirect("/positions/add");
+  res.redirect("/cargos/");
 });
 
 // render de la vista para actualziar el cargo
-
-router.get("/update/:id", async (req, res) => {
+router.get("/actualizar/:id", async (req, res) => {
   const { id } = req.params;
 
   const rows = await db.query(
@@ -36,26 +35,25 @@ router.get("/update/:id", async (req, res) => {
 });
 
 // actulizar el cargo
-router.post("/update/", async (req, res) => {
+router.post("/actualizar/", async (req, res) => {
   const { id, cargo } = req.body;
   await db.query("UPDATE positions SET name = ? WHERE id_position = ?", [
     cargo,
     id,
   ]);
   req.flash("success", "Cargo actualizado con Exito");
-  res.redirect("/positions/");
+  res.redirect("/cargos/");
 });
 
 // eliminar cargo
-router.get("/delete/:id", async (req, res) => {
+router.get("/eliminar/:id", async (req, res) => {
   const { id } = req.params;
-
   const rows = await db.query(
     "DELETE FROM positions WHERE id_position = ? LIMIT 1",
     [id]
   );
 
   req.flash("success", "Cargo elimanado con Exito");
-  res.redirect("/positions/");
+  res.redirect("/cargos/");
 });
 module.exports = router;

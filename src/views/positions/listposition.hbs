@@ -3,7 +3,7 @@
 <div class="container-fluid p-5">
   <div class="row">
     <div class="col-3 mb-3">
-      <a class="btn btn-success" href="/positions/add">Agregar Nuevo <i class="fas fa-plus-circle"></i></a>
+      <a class="btn btn-success" href="/cargos/agregar/">Agregar Nuevo <i class="fas fa-plus-circle"></i></a>
     </div>
     <div class="col-9 mb-3">
       {{> alert }}
@@ -28,8 +28,8 @@
                 <th scope="col">{{id}}</th>
                 <th scope="col">{{name}}</th>
                 <th scope="col">
-                  <a href="/positions/update/{{id}}" class="btn btn-sm btn-success">Actualizar</a>
-                  <a href="/positions/delete/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
+                  <a href="/cargos/actualizar/{{id}}" class="btn btn-sm btn-success">Actualizar</a>
+                  <a href="/cargos/eliminar/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
                 </th>
               </tr>
               {{/each}}
