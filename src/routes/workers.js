@@ -9,8 +9,9 @@ router.get("/", async (req, res) => {
   );
   res.render("workers/listworker", { workers });
 });
+
 // vista para agregar un nuevo personal
-router.get("/add", async (req, res) => {
+router.get("/agregar/", async (req, res) => {
   const positions = await db.query("SELECT id_position, name FROM positions");
   res.render("workers/newworker", {
     positions,
@@ -18,7 +19,7 @@ router.get("/add", async (req, res) => {
 });
 
 // registro del personal
-router.post("/add", async (req, res) => {
+router.post("/agregar/", async (req, res) => {
   const { document, name, lastname, position } = req.body;
 
   const result = await db.query(
@@ -26,20 +27,20 @@ router.post("/add", async (req, res) => {
     [document, name, lastname, position]
   );
   req.flash("success", "Regitro completado");
-  res.redirect("/workers/add");
+  res.redirect("/personal/");
 });
 
 // eliminar un registro
-router.get("/delete/:id", async (req, res) => {
+router.get("/eliminar/:id", async (req, res) => {
   const { id } = req.params;
 
   await db.query("DELETE FROM workers WHERE id_worker = ? ", [id]);
   req.flash("success", "Eliminacion completada");
-  res.redirect("/workers/");
+  res.redirect("/personal/");
 });
 
 // vista actualizacion de datos del personal
-router.get("/update/:id", async (req, res) => {
+router.get("/actualizar/:id", async (req, res) => {
   const { id } = req.params;
   const rows = await db.query(
     "SELECT  wr.id_worker AS id,wr.worker_document AS doc , wr.name, wr.last_name, pos.name AS cargo, state FROM workers AS wr INNER JOIN positions AS pos	ON pos.id_position = wr.id_position WHERE wr.id_worker = ?",
@@ -55,7 +56,7 @@ router.get("/update/:id", async (req, res) => {
 });
 
 // actualizacion de datos
-router.post("/update", async (req, res) => {
+router.post("/actualizar/", async (req, res) => {
   const { name, lastname, id, document } = req.body;
 
   await db.query(
@@ -63,14 +64,14 @@ router.post("/update", async (req, res) => {
     [name, lastname, document, id]
   );
   req.flash("success", "Actualizacion exitosa");
-  res.redirect("/workers");
+  res.redirect("/personal/");
 });
 
 // cambio de estado
-router.get("/change/state/:id", async (req, res) => {
+router.get("/cambio/estado/:id", async (req, res) => {
   const { id } = req.params;
   await db.query("UPDATE workers SET state = !state WHERE id_worker = ?", [id]);
   req.flash("success", "Cambio de estado Realizado");
-  res.redirect("/workers");
+  res.redirect("/personal/");
 });
 module.exports = router;

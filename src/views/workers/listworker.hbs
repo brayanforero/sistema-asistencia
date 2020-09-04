@@ -3,7 +3,7 @@
 <div class="container-fluid p-5">
   <div class="row">
     <div class="col-3 mb-3">
-      <a class="btn btn-success" href="/workers/add">Agregar Nuevo <i class="fas fa-user-plus"></i></a>
+      <a class="btn btn-success" href="/personal/agregar">Agregar Nuevo <i class="fas fa-user-plus"></i></a>
     </div>
     <div class="col-9 mb-3">
       {{> alert }}
@@ -30,7 +30,7 @@
               {{#each workers}}
               <tr>
                 <th>
-                  <a class="text-info" href="/workers/{{id}}">{{id}}</a>
+                  <a class="text-info" href="/personal/{{id}}">{{id}}</a>
                 </th>
                 <th>{{doc}}</th>
                 <td>{{name}}</td>
@@ -38,9 +38,9 @@
                 <td>{{cargo}}</td>
                 <td>{{validState state}}</td>
                 <td>
-                  <a href="/workers/update/{{id}}" class="btn btn-sm btn-success">Actualizar</a>
-                  <a href="/workers/delete/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
-                  <a href="/workers/change/state/{{id}}" class="btn btn-sm btn-info">Cambiar a
+                  <a href="/personal/actualizar/{{id}}" class="btn btn-sm btn-success">Actualizar</a>
+                  <a href="/personal/eliminar/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
+                  <a href="/personal/cambio/estado/{{id}}" class="btn btn-sm btn-info">Cambiar a
                     {{validStateInverse state}}</a>
                 </td>
               </tr>
