@@ -12,10 +12,10 @@ router.get("/entrance/", async (req, res) => {
 // render de la vista para agregar una entrada
 router.get("/entrance/add", async (req, res) => {
   const journals = await db.query(
-    "SELECT id_journal AS id, date_format(created_at,'%d-%m-%Y') AS fecha FROM journal;"
+    "SELECT id_journal AS id, date_format(created_at,'%d-%m-%Y') AS fecha FROM journal WHERE is_closed != 1;"
   );
   const workers = await db.query(
-    "SELECT id_worker AS id, CONCAT(name,' ',last_name ) AS fullname FROM workers;"
+    "SELECT id_worker AS id, CONCAT(name,' ',last_name ) AS fullname FROM workers ORDER BY fullname;"
   );
   res.render("assistances/newentrance", { journals, workers });
 });
@@ -26,7 +26,7 @@ router.post("/entrance/add", async (req, res) => {
 
   try {
     const rows = await db.query(
-      "INSERT INTO entrances (id_journal, id_worker, is_assist, observation, time_entrance, time_exit) VALUES(?,?,?,?,CURRENT_TIME,NULL)",
+      "INSERT INTO entrances (id_journal, id_worker, is_assist, observation, time_entrance, time_exit) VALUES(?,?,?,?,CURRENT_TIME,time_exit)",
       [journal, worker, assist, observation]
     );
     req.flash("success", "Operacion completa con Exito");

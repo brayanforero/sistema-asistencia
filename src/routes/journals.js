@@ -10,7 +10,7 @@ router.get("/add", (req, res) => {
 router.post("/add", async (req, res) => {
   const { day, month, year } = req.body;
   const date = `${year}-${month}-${day}`;
-  await db.query("INSERT INTO journal VALUES (NULL, ?)", [date]);
+  await db.query("INSERT INTO journal VALUES (NULL, ?, 0)", [date]);
   req.flash("success", "Jornada agregada con exito");
   res.redirect("/journals/add");
 });
