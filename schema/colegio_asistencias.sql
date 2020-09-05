@@ -92,7 +92,8 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     
     CONSTRAINT pk_workers PRIMARY KEY (id_user),
-    CONSTRAINT uq_workers UNIQUE INDEX (username)
+    CONSTRAINT uq_workers_username UNIQUE INDEX (username),
+    CONSTRAINT uq_workers_person UNIQUE INDEX (id_worker)
 );
 -- ADD TO USERS FOREIGN KEYS
 ALTER TABLE users ADD CONSTRAINT fk_users_workers  FOREIGN KEY (id_worker)
