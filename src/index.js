@@ -59,7 +59,7 @@ app.use("/personal", require("./routes/workers"));
 app.use("/cargos/", require("./routes/positions"));
 app.use("/jornadas/", require("./routes/journals"));
 app.use("/asistencias/", require("./routes/assistances"));
-app.use("/users/", require("./routes/users"));
+app.use("/usuarios/", require("./routes/users"));
 app.use("/auth/", require("./routes/auth"));
 // HANDDLER 404
 app.use((req, res) => {

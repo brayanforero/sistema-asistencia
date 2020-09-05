@@ -2,10 +2,9 @@ const express = require("express");
 const router = express.Router();
 const db = require("../database/connection");
 const helper = require("../libs/helpers");
-const { user } = require("../database/config");
 
 // render de la vista para agregar un nuevo usuario
-router.get("/add", async (req, res) => {
+router.get("/agregar/", async (req, res) => {
   const workers = await db.query(
     "SELECT id_worker AS id, CONCAT(name,' ',last_name) AS fullname FROM workers WHERE state = 1"
   );
@@ -13,7 +12,7 @@ router.get("/add", async (req, res) => {
 });
 
 // proceso de registro de usuario
-router.post("/add", async (req, res) => {
+router.post("/agregar/", async (req, res) => {
   const { person, username, password } = req.body;
   const hash = await helper.encryptPass(password);
   try {
@@ -23,10 +22,10 @@ router.post("/add", async (req, res) => {
     );
 
     req.flash("success", "Usuario Registrado");
-    res.redirect("/users/add");
+    res.redirect("/usuarios/agregar/");
   } catch (error) {
     req.flash("falied", "Operacion Fallida");
-    res.redirect("/users/add");
+    res.redirect("/usuarios/agregar/");
   }
 });
 module.exports = router;
