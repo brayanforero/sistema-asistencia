@@ -28,4 +28,18 @@ router.post("/agregar/", async (req, res) => {
     res.redirect("/usuarios/agregar/");
   }
 });
+
+// render de la vista para listar los usuarios
+router.get("/", async (req, res) => {
+  const users = await db.query(
+    "SELECT u.id_user AS id, u.username, u.is_habilited, concat(w.name, ' ',w.last_name) AS person FROM users AS u, workers AS w WHERE u.id_worker = w.id_worker"
+  );
+  res.render("users/listuser", { users });
+});
+
+router.get("/desactivar/:id", async (req, res) => {
+  const users = await db.query("UPDATE users SET is_habilited = 0");
+  req.flash("success", "Usuario desactivado con Exito");
+  res.redirect("/usuarios/");
+});
 module.exports = router;
