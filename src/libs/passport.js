@@ -10,9 +10,10 @@ const Strategy = new LocalStrategy(
     passReqToCallback: true,
   },
   async (req, username, password, done) => {
-    const rows = await db.query("SELECT * FROM users WHERE username = ?", [
-      username,
-    ]);
+    const rows = await db.query(
+      "SELECT id_user AS id, username, password, is_habilited FROM users WHERE username = ?",
+      [username]
+    );
 
     if (rows.length > 0) {
       const user = rows[0];
@@ -24,6 +25,14 @@ const Strategy = new LocalStrategy(
           null,
           false,
           req.flash("falied", "Los datos ingresados son incorrectos")
+        );
+      }
+
+      if (!user.is_habilited) {
+        return done(
+          null,
+          false,
+          req.flash("falied", "Estimado usuario, tu acceso esta Desactivado")
         );
       }
 
@@ -42,10 +51,14 @@ passport.use("local-login", Strategy);
 
 // serializacion
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.id);
 });
 
 // deserializacion
-passport.deserializeUser((user, done) => {
-  done(null, user);
+passport.deserializeUser(async (id, done) => {
+  const rows = await db.query(
+    "SELECT id_user AS id, username, password, is_habilited FROM users WHERE id_user = ?",
+    [id]
+  );
+  done(null, rows[0]);
 });
