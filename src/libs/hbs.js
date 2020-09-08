@@ -24,4 +24,16 @@ helper.validAssists = (state) => {
   return str;
 };
 
+helper.isActive = (state) => {
+  let str = "";
+  if (state) str = "Si";
+  if (!state) str = "No";
+  return str;
+};
+
+helper.isNotHabilited = (state) => {
+  if (!state) return true;
+  return false;
+};
+
 module.exports = helper;

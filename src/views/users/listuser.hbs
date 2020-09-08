@@ -31,12 +31,16 @@
                   {{id}}
                 </th>
                 <th>{{username}}</th>
-                <td>{{is_habilited}}</>
+                <td>{{isActive is_habilited}}</>
                 <td>{{person}}</>
                 <td>
-                  <a href="/usuarios/actualizar/{{id}}" class="btn btn-sm btn-success">Actualizar</a>
+                  {{#if (isNotHabilited is_habilited)}}
+                  <a href="/usuarios/activar/{{id}}" class="btn btn-sm btn-success">Activar</a>
+                  {{/if}}
                   <a href="/usuarios/eliminar/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
+                  {{#if is_habilited}}
                   <a href="/usuarios/desactivar/{{id}}" class="btn btn-sm btn-warning">Desactivar</a>
+                  {{/if}}
                 </td>
               </tr>
               {{/each}}
