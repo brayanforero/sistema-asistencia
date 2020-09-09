@@ -3,15 +3,15 @@
 <div class="container-fluid p-5">
   <div class="row">
     <div class="col-3 mb-3">
-      <a class="btn btn-success" href="/usuarios/agregar">Agregar Nuevo <i class="fas fa-user-plus"></i></a>
+      <a class="btn btn-light text-success" href="/usuarios/agregar">Agregar Nuevo <i class="fas fa-user-plus"></i></a>
     </div>
     <div class="col-9 mb-3">
       {{> alert }}
     </div>
     <div class="col-12">
       <div class="card">
-        <div class="card-header">
-          <h2 class="text-info m-0">Usuarios del Sistema</h2>
+        <div class="card-header bg-primary text-center">
+          <h2 class="text-light m-0">Usuarios del Sistema</h2>
         </div>
         <div class="card-body ">
           <table class="table table-sm table-striped table-hover table-responsive-md">
@@ -37,10 +37,10 @@
                   {{#if (isNotHabilited is_habilited)}}
                   <a href="/usuarios/activar/{{id}}" class="btn btn-sm btn-success">Activar</a>
                   {{/if}}
-                  <a href="/usuarios/eliminar/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
                   {{#if is_habilited}}
                   <a href="/usuarios/desactivar/{{id}}" class="btn btn-sm btn-warning">Desactivar</a>
                   {{/if}}
+                  <a href="/usuarios/eliminar/{{id}}" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
               </tr>
               {{/each}}
