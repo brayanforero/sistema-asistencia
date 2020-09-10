@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/connection");
+const { isNotLogin } = require("../middlewares/auth");
 // render de vista para agregar una nueva jornada
-router.get("/agregar/", (req, res) => {
+router.get("/agregar/", isNotLogin, (req, res) => {
   res.render("journals/newjournal");
 });
 
 // agregar una nueva jornada laboral
-router.post("/agregar/", async (req, res) => {
+router.post("/agregar/", isNotLogin, async (req, res) => {
   const { day, month, year } = req.body;
   const date = `${year}-${month}-${day}`;
   await db.query("INSERT INTO journal VALUES (NULL, ?, 0)", [date]);
@@ -16,7 +17,7 @@ router.post("/agregar/", async (req, res) => {
 });
 
 // render de vista lista de jornadas
-router.get("/", async (req, res) => {
+router.get("/", isNotLogin, async (req, res) => {
   const rows = await db.query(
     "SELECT id_journal AS id, date_format(created_at,'%d/%m/%Y') AS date, IF(is_closed, 'si', 'no') AS close FROM journal"
   );
@@ -24,7 +25,7 @@ router.get("/", async (req, res) => {
 });
 
 // Elimina jornadas
-router.get("/eliminar/:id", async (req, res) => {
+router.get("/eliminar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
   await db.query("DELETE FROM journal WHERE id_journal = ? LIMIT 1", [id]);
@@ -34,7 +35,7 @@ router.get("/eliminar/:id", async (req, res) => {
 
 // cerrar jornada - marcar como terminada
 
-router.get("/cerrar/:id", async (req, res) => {
+router.get("/cerrar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
   await db.query("UPDATE journal SET is_closed = 1 LIMIT 1");

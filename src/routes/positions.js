@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/connection");
-
+const { isNotLogin } = require("../middlewares/auth");
 // render vista lista de cargos
 router.get("/", async (req, res) => {
   const rows = await db.query("SELECT id_position AS id, name FROM positions");
@@ -9,12 +9,12 @@ router.get("/", async (req, res) => {
 });
 
 // render de vista para agregar un nuevo cargo
-router.get("/agregar/", (req, res) => {
+router.get("/agregar/", isNotLogin, (req, res) => {
   res.render("positions/newposition");
 });
 
 // agrega nuevo cargo
-router.post("/agregar/", async (req, res) => {
+router.post("/agregar/", isNotLogin, async (req, res) => {
   const { cargo } = req.body;
 
   await db.query("INSERT INTO positions SET name = ?", [cargo]);
@@ -23,7 +23,7 @@ router.post("/agregar/", async (req, res) => {
 });
 
 // render de la vista para actualziar el cargo
-router.get("/actualizar/:id", async (req, res) => {
+router.get("/actualizar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
   const rows = await db.query(
@@ -35,7 +35,7 @@ router.get("/actualizar/:id", async (req, res) => {
 });
 
 // actulizar el cargo
-router.post("/actualizar/", async (req, res) => {
+router.post("/actualizar/", isNotLogin, async (req, res) => {
   const { id, cargo } = req.body;
   await db.query("UPDATE positions SET name = ? WHERE id_position = ?", [
     cargo,
@@ -46,7 +46,7 @@ router.post("/actualizar/", async (req, res) => {
 });
 
 // eliminar cargo
-router.get("/eliminar/:id", async (req, res) => {
+router.get("/eliminar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
   const rows = await db.query(
     "DELETE FROM positions WHERE id_position = ? LIMIT 1",

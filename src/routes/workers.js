@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/connection");
-
+const { isNotLogin } = require("../middlewares/auth");
 // lista el personal
-router.get("/", async (req, res) => {
+router.get("/", isNotLogin, async (req, res) => {
   const workers = await db.query(
     "SELECT  wr.id_worker AS id, wr.worker_document AS doc, wr.name, wr.last_name, pos.name AS cargo, state FROM workers AS wr INNER JOIN positions AS pos	ON pos.id_position = wr.id_position"
   );
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
 });
 
 // vista para agregar un nuevo personal
-router.get("/agregar/", async (req, res) => {
+router.get("/agregar/", isNotLogin, async (req, res) => {
   const positions = await db.query("SELECT id_position, name FROM positions");
   res.render("workers/newworker", {
     positions,
@@ -19,7 +19,7 @@ router.get("/agregar/", async (req, res) => {
 });
 
 // registro del personal
-router.post("/agregar/", async (req, res) => {
+router.post("/agregar/", isNotLogin, async (req, res) => {
   const { document, name, lastname, position } = req.body;
 
   const result = await db.query(
@@ -31,7 +31,7 @@ router.post("/agregar/", async (req, res) => {
 });
 
 // eliminar un registro
-router.get("/eliminar/:id", async (req, res) => {
+router.get("/eliminar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
   await db.query("DELETE FROM workers WHERE id_worker = ? ", [id]);
@@ -40,7 +40,7 @@ router.get("/eliminar/:id", async (req, res) => {
 });
 
 // vista actualizacion de datos del personal
-router.get("/actualizar/:id", async (req, res) => {
+router.get("/actualizar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
   const rows = await db.query(
     "SELECT  wr.id_worker AS id,wr.worker_document AS doc , wr.name, wr.last_name, pos.name AS cargo, state FROM workers AS wr INNER JOIN positions AS pos	ON pos.id_position = wr.id_position WHERE wr.id_worker = ?",
@@ -56,7 +56,7 @@ router.get("/actualizar/:id", async (req, res) => {
 });
 
 // actualizacion de datos
-router.post("/actualizar/", async (req, res) => {
+router.post("/actualizar/", isNotLogin, async (req, res) => {
   const { name, lastname, id, document } = req.body;
 
   await db.query(
@@ -68,7 +68,7 @@ router.post("/actualizar/", async (req, res) => {
 });
 
 // cambio de estado
-router.get("/cambio/estado/:id", async (req, res) => {
+router.get("/cambio/estado/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
   await db.query("UPDATE workers SET state = !state WHERE id_worker = ?", [id]);
   req.flash("success", "Cambio de estado Realizado");
