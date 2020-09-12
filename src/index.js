@@ -10,6 +10,7 @@ const exhbs = require("express-handlebars");
 const MySQLStore = require("express-mysql-session");
 const database = require("./database/config");
 const passport = require("passport");
+require("dotenv").config();
 // SETTINGS
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));

@@ -1,9 +1,11 @@
+require("dotenv").config();
+
 const dataConfig = {
-  host: "bgl0fmjtdzdwydozge3q-mysql.services.clever-cloud.com",
-  port: 3306,
-  user: "uq3d3yvjvd48qoww",
-  password: "kD9dINo1K6u4jfDelVgx",
-  database: "bgl0fmjtdzdwydozge3q",
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DB,
   charset: "utf8_general_ci",
   timezone: "-0400",
 };
