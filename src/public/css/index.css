@@ -1,0 +1,20 @@
+.cintillo {
+  background: #244e82;
+  width: 100%;
+}
+
+.cintillo img {
+  width: 100%;
+  max-height: 60px;
+  vertical-align: top;
+  object-fit: cover;
+}
+
+.carousel-item {
+  height: 400px;
+  max-height: 400px;
+}
+
+.o-hidden {
+  overflow: hidden;
+}

@@ -11,6 +11,7 @@ const MySQLStore = require("express-mysql-session");
 const database = require("./database/config");
 const passport = require("passport");
 require("dotenv").config();
+
 // SETTINGS
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
@@ -27,7 +28,7 @@ app.engine(
 app.set("view engine", ".hbs");
 
 // STATIC FILES
-app.set("public", express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // MIDDELWARES
 app.use(morgan("dev"));
