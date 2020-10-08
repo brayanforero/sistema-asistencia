@@ -44,7 +44,10 @@ router.get("/cerrar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
   try {
-    await db.query("UPDATE journal SET is_closed = 1 LIMIT 1");
+    await db.query(
+      "UPDATE journal SET is_closed = 1 WHERE id_journal = ? LIMIT 1",
+      [id]
+    );
     req.flash("success", `Jornada ${id} se ha cerrado con Exito`);
     res.redirect("/jornadas/");
   } catch (error) {
