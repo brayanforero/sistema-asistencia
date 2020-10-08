@@ -28,9 +28,14 @@ router.get("/", isNotLogin, async (req, res) => {
 router.get("/eliminar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
-  await db.query("DELETE FROM journal WHERE id_journal = ? LIMIT 1", [id]);
-  req.flash("success", "Jornada eliminida con exito");
-  res.redirect("/jornadas/");
+  try {
+    await db.query("DELETE FROM journal WHERE id_journal = ? LIMIT 1", [id]);
+    req.flash("success", "Jornada eliminida con exito");
+    res.redirect("/jornadas/");
+  } catch (error) {
+    req.flash("falied", "Operacion Fallida");
+    res.redirect("/jornadas/");
+  }
 });
 
 // cerrar jornada - marcar como terminada
@@ -38,9 +43,14 @@ router.get("/eliminar/:id", isNotLogin, async (req, res) => {
 router.get("/cerrar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
-  await db.query("UPDATE journal SET is_closed = 1 LIMIT 1");
-  req.flash("success", `Jornada ${id} se ha cerrado con Exito`);
-  res.redirect("/jornadas/");
+  try {
+    await db.query("UPDATE journal SET is_closed = 1 LIMIT 1");
+    req.flash("success", `Jornada ${id} se ha cerrado con Exito`);
+    res.redirect("/jornadas/");
+  } catch (error) {
+    req.flash("falied", `No se pudo completar su Operacion`);
+    res.redirect("/jornadas/");
+  }
 });
 
 module.exports = router;
