@@ -6,7 +6,7 @@ const { isNotLogin } = require("../middlewares/auth");
 
 router.get("/", isNotLogin, async (req, res) => {
   const entrances = await db.query(
-    "SELECT en.id_entrance AS id,wrk.worker_document AS doc,concat(wrk.name, ' ', wrk.last_name) AS person,wrk.state,en.is_assist,time_format(en.time_entrance, '%h:%i %p') AS time_go,valid_date_end(en.time_exit) AS time_end,en.observation AS ob,date_format(jor.created_at,'%d/%m/%Y') AS journal FROM entrances AS en INNER JOIN workers AS wrk	ON wrk.id_worker = en.id_worker INNER JOIN journal AS jor ON jor.id_journal = en.id_journal"
+    "SELECT en.id_entrance AS id,wrk.worker_document AS doc,concat(wrk.name, ' ', wrk.last_name) AS person,wrk.state,en.is_assist,time_format(en.time_entrance, '%h:%i %p') AS time_go,time_format(en.time_exit, '%h:%i %p') AS time_end,en.observation AS ob,date_format(jor.created_at,'%d/%m/%Y') AS journal FROM entrances AS en INNER JOIN workers AS wrk	ON wrk.id_worker = en.id_worker INNER JOIN journal AS jor ON jor.id_journal = en.id_journal"
   );
   res.render("assistances/entrances", { entrances });
 });

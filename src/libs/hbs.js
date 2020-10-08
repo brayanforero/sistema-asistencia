@@ -35,5 +35,10 @@ helper.isNotHabilited = (state) => {
   if (!state) return true;
   return false;
 };
+helper.valid_end = (time) => {
+  if (time == "12:00 AM") return "Por salir";
+
+  return time;
+};
 
 module.exports = helper;
