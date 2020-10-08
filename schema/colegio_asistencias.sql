@@ -99,4 +99,22 @@ CREATE TABLE IF NOT EXISTS users (
 ALTER TABLE users ADD CONSTRAINT fk_users_workers  FOREIGN KEY (id_worker)
 			REFERENCES workers (id_worker)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+DROP FUNCTION IF EXISTS valid_date_end;
+DELIMITER $$
+CREATE FUNCTION IF NOT EXISTS valid_date_end(_end TIME) 
+RETURNS VARCHAR(9)
+BEGIN 
+    DECLARE string VARCHAR(9); 
+    IF _end = '00:00:00' THEN 
+        SET string = 'Por salir';
+    ELSE 
+        SET string = (SELECT DATE_FORMAT(_end, '%h:%i %p'));
+    END IF; 
+    RETURN string; 
+END $$
+DELIMITER ;
+
+
 SHOW tables;
