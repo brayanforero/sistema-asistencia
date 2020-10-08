@@ -40,16 +40,43 @@ router.get("/", isNotLogin, async (req, res) => {
 
 // funcion para desactivar usuarios
 router.get("/desactivar/:id", isNotLogin, async (req, res) => {
-  const users = await db.query("UPDATE users SET is_habilited = 0");
-  req.flash("success", "Usuario desactivado con Exito");
-  res.redirect("/usuarios/");
+  const { id } = req.params;
+  const users = await db.query(
+    "UPDATE users SET is_habilited = 0 WHERE id_user = ?",
+    [id]
+  );
+  try {
+    req.flash("success", "Usuario desactivado con Exito");
+    res.redirect("/usuarios/");
+  } catch (error) {
+    req.flash("falied", "No se pudo completar su Operacion");
+    res.redirect("/usuarios/");
+  }
 });
 
 // funcion para activar usuarios
 router.get("/activar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
-  await db.query("UPDATE users SET is_habilited = 1");
-  req.flash("success", "Usuario activado con Exito");
-  res.redirect("/usuarios/");
+  await db.query("UPDATE users SET is_habilited = 1 WHERE id_user = ?", [id]);
+  try {
+    req.flash("success", "Usuario activado con Exito");
+    res.redirect("/usuarios/");
+  } catch (error) {
+    req.flash("falied", "No se pudo completar su Operacion");
+    res.redirect("/usuarios/");
+  }
+});
+
+// funcion para desactivar usuarios
+router.get("/eliminar/:id", isNotLogin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const users = await db.query("DELETE FROM users WHERE id_user = ?", [id]);
+    req.flash("success", "Usuario eliminado con Exito");
+    res.redirect("/usuarios/");
+  } catch (error) {
+    req.flash("falied", "Operacion Fallida");
+    res.redirect("/usuarios/");
+  }
 });
 module.exports = router;
