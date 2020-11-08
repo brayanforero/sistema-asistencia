@@ -1,15 +1,15 @@
 -- DELTED DATABASE
-DROP DATABASE IF EXISTS colegio_asistencias;
+DROP DATABASE IF EXISTS asistencias;
 
 -- DATABASE CREATED AND CONFIG
 
-CREATE DATABASE IF NOT EXISTS colegio_asistencias
+CREATE DATABASE IF NOT EXISTS asistencias
 	CHARACTER SET utf8
 	COLLATE utf8_general_ci
 
 ;
 -- TO USING DATABASE
-USE colegio_asistencias;
+USE asistencias;
 
 
 -- TABLE POSITION
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS workers (
     last_name VARCHAR(50) NOT NULL,
     id_position INT UNSIGNED NOT NULL, 
     state BOOLEAN NOT NULL DEFAULT TRUE,
+    isshow BOOLEAN NOT NULL DEFAULT TRUE,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_workers PRIMARY KEY (id_worker),
@@ -44,7 +45,7 @@ CREATE TABLE IF NOT EXISTS workers (
 ALTER TABLE workers ADD CONSTRAINT fk_workers_positions  FOREIGN KEY (id_position)
 			REFERENCES positions (id_position)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
-DESC workers;
+-- DESC workers;
 
 -- TABLE JOURNAL
 DROP TABLE IF EXISTS journal;
@@ -64,6 +65,7 @@ CREATE TABLE IF NOT EXISTS entrances (
     id_worker INT UNSIGNED NOT NULL,
     is_assist BOOLEAN NOT NULL,
     observation VARCHAR(20) NOT NULL,
+    motivo VARCHAR(50) NOT NULL DEFAULT 'n/a',
 	time_entrance TIME NOT NULL,
     time_exit TIME NOT NULL DEFAULT '00:00',
     
@@ -101,7 +103,7 @@ ALTER TABLE users ADD CONSTRAINT fk_users_workers  FOREIGN KEY (id_worker)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
-DROP FUNCTION IF EXISTS valid_date_end;
+/*DROP FUNCTION IF EXISTS valid_date_end;
 DELIMITER $$
 CREATE FUNCTION IF NOT EXISTS valid_date_end(_end TIME) 
 RETURNS VARCHAR(9)
@@ -115,6 +117,6 @@ BEGIN
     RETURN string; 
 END $$
 DELIMITER ;
-
+*/
 
 SHOW tables;
