@@ -6,7 +6,7 @@ const { isNotLogin } = require("../middlewares/auth");
 
 router.get("/", isNotLogin, async (req, res) => {
   const entrances = await db.query(
-    "SELECT en.id_entrance AS id,wrk.worker_document AS doc,concat(wrk.name, ' ', wrk.last_name) AS person,wrk.state,en.is_assist,time_format(DATE_SUB(en.time_entrance, INTERVAL 4 HOUR), '%h:%i %p') AS time_go,time_format(DATE_SUB(en.time_exit, INTERVAL 4 HOUR), '%h:%i %p') AS time_end,en.observation AS ob,date_format(jor.created_at,'%d/%m/%Y') AS journal FROM entrances AS en INNER JOIN workers AS wrk	ON wrk.id_worker = en.id_worker INNER JOIN journal AS jor ON jor.id_journal = en.id_journal"
+    "SELECT en.id_entrance AS id,wrk.worker_document AS doc,concat(wrk.name, ' ', wrk.last_name) AS person,wrk.state,en.is_assist,time_format(DATE_SUB(en.time_entrance, INTERVAL 4 HOUR), '%h:%i %p') AS time_go,time_format(DATE_SUB(en.time_exit, INTERVAL 4 HOUR), '%h:%i %p') AS time_end,en.observation AS ob,motivo,date_format(jor.created_at,'%d/%m/%Y') AS journal, IF(en.time_exit = '00:00:00', true, false) AS closed  FROM entrances AS en INNER JOIN workers AS wrk	ON wrk.id_worker = en.id_worker INNER JOIN journal AS jor ON jor.id_journal = en.id_journal"
   );
   res.render("assistances/entrances", { entrances });
 });
@@ -23,12 +23,12 @@ router.get("/entrada/", isNotLogin, async (req, res) => {
 
 // proceso para agregar una nueva entrada
 router.post("/entrada/", isNotLogin, async (req, res) => {
-  let { journal, worker, assist, observation } = req.body;
+  let { journal, worker, assist, observation, des } = req.body;
 
   try {
     const rows = await db.query(
-      "INSERT INTO entrances (id_journal, id_worker, is_assist, observation, time_entrance, time_exit) VALUES(?,?,?,?,CURRENT_TIME,time_exit)",
-      [journal, worker, assist, observation]
+      "INSERT INTO entrances (id_journal, id_worker, is_assist, observation,motivo, time_entrance, time_exit) VALUES(?,?,?,?,?,CURRENT_TIME,time_exit)",
+      [journal, worker, assist, observation, des]
     );
     req.flash("success", "Operacion completa con Exito");
     res.redirect("/asistencias/");

@@ -9,12 +9,12 @@
     <div class="col-9 mb-3">
       {{> alert }}
     </div>
-    <div class="col-10">
+    <div class="col-12">
       <div class="card">
         <div class="card-header bg-primary text-center">
           <h2 class="text-light m-0">Lista de entrada de Personal</h2>
         </div>
-        <div class="card-body ">
+        <div class="card-body">
           <table class="table table-sm table-striped table-hover table-responsive-md">
             <thead>
               <tr>
@@ -26,6 +26,7 @@
                 <th scope="col">Hora de Entrada</th>
                 <th scope="col">Hora de Salida</th>
                 <th scope="col">Observacion</th>
+                <th scope="col">Motivo</th>
                 <th scope="col">Jornada</th>
                 <th scope="col">Acciones</th>
               </tr>
@@ -41,10 +42,13 @@
                 <th scope="col">{{time_go}}</th>
                 <th scope="col">{{valid_end time_end}}</th>
                 <th class="text-capitalize" scope="col">{{ob}}</th>
+                <th scope="col">{{motivo}}</th>
                 <th scope="col">{{journal}}</th>
                 <th scope="col">{{date}}</th>
+                {{#if closed}}
                 <th scope="col">
                   <a class="btn btn-sm btn-secondary" href="/asistencias/salida/{{id}}">Marcar Salida</a>
+                {{/if}}
                 </th>
               </tr>
               {{/each}}
