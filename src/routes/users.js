@@ -23,7 +23,7 @@ router.post("/agregar/", isNotLogin, async (req, res) => {
     );
 
     req.flash("success", "Usuario Registrado");
-    res.redirect("/usuarios/agregar/");
+    res.redirect("/usuarios/");
   } catch (error) {
     req.flash("falied", "Operacion Fallida");
     res.redirect("/usuarios/agregar/");
