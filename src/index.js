@@ -65,7 +65,7 @@ app.use("/usuarios/", require("./routes/users"));
 app.use("/auth/", require("./routes/auth"));
 // HANDDLER 404
 app.use((req, res) => {
-  res.status(404).render("404");
+  res.status(200).render("404");
 });
 app.listen(app.get("port"), () => {
   console.log(`SERVER ON PORT ${app.get("port")}`);

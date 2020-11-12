@@ -1,3 +1,6 @@
+/* body {
+  height: 100vh;
+} */
 .cintillo {
   background: #244e82;
   width: 100%;
@@ -17,4 +20,14 @@
 
 .o-hidden {
   overflow: hidden;
+}
+
+.main-404 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.display-4 {
+  font-size: 3.75rem;
 }
