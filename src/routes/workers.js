@@ -5,7 +5,7 @@ const { isNotLogin } = require("../middlewares/auth");
 // lista el personal
 router.get("/", isNotLogin, async (req, res) => {
   const workers = await db.query(
-    "SELECT  wr.id_worker AS id, wr.worker_document AS doc, wr.name, wr.last_name, pos.name AS cargo, state FROM workers AS wr INNER JOIN positions AS pos	ON pos.id_position = wr.id_position"
+    "SELECT  wr.id_worker AS id, wr.worker_document AS doc, wr.name, wr.last_name, pos.name AS cargo, state FROM workers AS wr INNER JOIN positions AS pos	ON pos.id_position = wr.id_position WHERE wr.isshow = 1"
   );
   res.render("workers/listworker", { workers });
 });
@@ -34,7 +34,7 @@ router.post("/agregar/", isNotLogin, async (req, res) => {
 router.get("/eliminar/:id", isNotLogin, async (req, res) => {
   const { id } = req.params;
 
-  await db.query("DELETE FROM workers WHERE id_worker = ? ", [id]);
+  await db.query("UPDATE workers SET isshow = 0 WHERE id_worker = ? ", [id]);
   req.flash("success", "Eliminacion completada");
   res.redirect("/personal/");
 });
