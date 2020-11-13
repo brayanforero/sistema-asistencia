@@ -79,4 +79,31 @@ router.get("/eliminar/:id", isNotLogin, async (req, res) => {
     res.redirect("/usuarios/");
   }
 });
+
+router.get("/changepassword/:id", isNotLogin, async (req, res) => {
+  const { id } = req.params;
+  res.render("users/changePassword", { id });
+});
+
+router.post("/changepassword/", isNotLogin, async (req, res) => {
+  const { id, password, password2 } = req.body;
+
+  if (password !== password2) {
+    req.flash("falied", "Las contraseñas no coinciden");
+    return res.redirect(`/usuarios/changepassword/${id}`);
+  }
+
+  try {
+    const hash = await helper.encryptPass(password);
+    await db.query("UPDATE users SET password = ? WHERE id_user = ?", [
+      hash,
+      id,
+    ]);
+    req.flash("success", "Las contraseña se cambio con exito");
+    res.redirect(`/usuarios/`);
+  } catch (error) {
+    req.flash("falied", "Operacion fallida");
+    res.redirect(`/usuarios/changepassword/${id}`);
+  }
+});
 module.exports = router;
